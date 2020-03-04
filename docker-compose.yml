@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  frontend:
+    container_name: gs-frontend
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    
