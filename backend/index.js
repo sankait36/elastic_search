@@ -21,7 +21,6 @@ app.use(allowCrossDomain);
 app.get('/', (req, res) => res.send('Hello World!'));
 
 app.get('/search', async (req, res) => {
-  console.log(req);
   const { term, offset } = req.query;
   search.queryTerm(term, offset)
     .then((data) => {

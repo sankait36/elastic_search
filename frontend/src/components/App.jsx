@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+import { baseUrl } from '../utils/api';
 
 const App = () => {
-  const [count, setCount] = useState(0);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('work');
+  const [searchOffset, setSearchOffset] = useState(0);
+
+  // useEffect(() => {
+  //   const search = async () => {
+  //     axios.get(`${baseUrl}/search`, { params: { term: searchTerm, offset: searchOffset } })
+  //       .then(data => {
+  //         console.log(data);
+  //       })
+  //       .catch(err => err)
+  //   };
+  //   search();
+  // }, []);
 
   return (
-    <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>
-        Click me
-      </button>
-    </div>
+    <div>Hello World</div>
   );
 }
 
