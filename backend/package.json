@@ -1,0 +1,14 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for the Guttenberg Search Toy App",
+  "main": "index.js",
+  "scripts": {
+    "start": "node  --inspect=0.0.0.0:9229 index.js"
+  },
+  "author": "Sankait Kakkar",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
