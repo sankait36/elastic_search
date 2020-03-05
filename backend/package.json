@@ -9,6 +9,7 @@
   "author": "Sankait Kakkar",
   "license": "ISC",
   "dependencies": {
+    "elasticsearch": "^16.6.0",
     "express": "^4.17.1"
   }
 }
