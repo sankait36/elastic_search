@@ -1,7 +1,35 @@
 const express = require('express');
-const app = express()
-const port = 3000
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
 
-app.get('/', (req, res) => res.send('Hello World!'))
+const search = require('./search');
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+const app = express();
+const port = 3000;
+
+const allowCrossDomain = (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, HEAD, OPTIONS, PATCH, DELETE');
+  next();
+};
+
+app.use(bodyParser.json());
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
+app.use(allowCrossDomain);
+
+app.get('/', (req, res) => res.send('Hello World!'));
+
+app.get('/search', async (req, res) => {
+  console.log(req);
+  const { term, offset } = req.query;
+  search.queryTerm(term, offset)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
