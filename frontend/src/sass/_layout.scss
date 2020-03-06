@@ -56,7 +56,6 @@
 
   &__info {
     margin-top: 1rem;
-    font-weight: 600;
   }
 
   &__author {
@@ -65,5 +64,16 @@
 
   &__title {
     font-size: 1.2rem;
+  }
+
+  &__empty {
+    background-color: white;
+    box-shadow: $shadow-light;
+    border: $line;
+    padding: 2rem;
+    align-self: center;
+    text-align: center;
+
+    font-size: 1.5rem;
   }
 }

@@ -19,9 +19,13 @@ const Result = ({
       </div>
     );
   });
-  return (
-    <div className="results">{resultCards}</div>
-  );
+  return resultCards.length === 0
+    ? (
+      <div className="results">
+        <div className="results__empty">No results found</div>
+      </div>
+    )
+    : <div className="results">{resultCards}</div>
 };
 
 Result.propTypes = {
