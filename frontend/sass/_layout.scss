@@ -6,6 +6,54 @@
 
   min-height: 50rem;
 
+
+  @media only screen and (max-width: $bp-largest) {
+    margin: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+.results {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 2rem 1rem;
+
+  &__item {
+    flex: 0 0 45%;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: white;
+    box-shadow: var($shadow-light);
+    padding: 2rem;
+    margin: 1rem;
+
+    @media only screen and (max-width: $bp-medium) {
+      flex: 1;
+    }
+  }
+
+  &__highlight {
+    border-bottom: $line;
+    font-size: 1.5rem;
+  }
+
+  &__info {
+    margin-top: 1rem;
+    font-weight: 600;
+  }
+
+  &__author {
+    font-size: 1.5rem;
+  }
+
+  &__title {
+    font-size: 1.2rem;
+  }
+
+  @media only screen and (max-width: $bp-medium) {
+    flex-direction: column;
+  }
 }
