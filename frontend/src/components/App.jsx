@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import Result from './Result';
 import Searchbox from './Searchbox';
+import Pagination from './Pagination';
 
 import { useDebounce } from '../hooks/useDebounce';
 import { baseUrl } from '../utils/api';
@@ -36,6 +37,7 @@ const App = () => {
           handleTextInput={setSearchTerm}
         />
       </div>
+      <Pagination />
       <Result
         searchResults={searchResults}
       />
