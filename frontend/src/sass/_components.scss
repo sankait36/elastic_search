@@ -1,0 +1,37 @@
+.search {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__input {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    background-color: $color-grey-light-2;
+    border: none;
+    padding: .7rem 2rem;
+    border-radius: 100px;
+    width: 80%;
+    transition: all .2s;
+    margin-right: -3.25rem;
+
+
+    &:focus {
+      outline: none;
+      width: 85%;
+      background-color: $color-grey-light-3;
+    }
+
+    &::-webkit-input-placeholder {
+      font-weight: 100;
+      color: $color-grey-dark-1;
+    }
+  }
+
+  &__icon {
+    height: 2rem;
+    width: 2rem;
+    fill: $color-primary;
+  }
+}
