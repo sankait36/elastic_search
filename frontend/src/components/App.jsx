@@ -26,9 +26,31 @@ const App = () => {
       .catch(err => err);
   }, [searchTerm, searchOffset]);
 
+
+  const pageLeft = useCallback(() => {
+    let offset = searchOffset;
+    offset = offset - 10;
+    if (offset < 0) {
+      offset = 0;
+    }
+    setSearchOffset(offset);
+  }, [numHits, searchOffset]);
+
+
+  const pageRight = useCallback(() => {
+    if (numHits > 10) {
+      let offset = searchOffset;
+      offset = offset + 10;
+      if (offset + 10 > numHits) {
+        offset = numHits - 10;
+      }
+      setSearchOffset(offset);
+    }
+  }, [numHits, searchOffset]);
+
   useEffect(() => {
     search();
-  }, [debouncedValue]);
+  }, [debouncedValue, searchOffset]);
 
   return (
     <div className="container">
@@ -37,7 +59,10 @@ const App = () => {
           handleTextInput={setSearchTerm}
         />
       </div>
-      <Pagination />
+      <Pagination
+        handlePageLeft={pageLeft}
+        handlePageRight={pageRight}
+      />
       <Result
         searchResults={searchResults}
       />

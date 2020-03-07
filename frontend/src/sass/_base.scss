@@ -23,6 +23,18 @@ $bp-medium: 56.25em; // 900px
 
 $bp-xsmall: 31.25em; // 900px
 
+@keyframes pushLeft {
+  0% {
+    margin-right: 10px;
+  }
+  50% {
+    margin-right: 15px;
+  }
+  100% {
+    margin-right: 10px;
+  }
+}
+
 *,
 *::before,
 *::after {
