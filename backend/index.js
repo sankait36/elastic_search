@@ -31,4 +31,15 @@ app.get('/search', async (req, res) => {
     });
 });
 
+app.get('/paragraphs', async(req, res) => {
+  const { bookTitle, start, end } = req.query;
+  search.getParagraphs(bookTitle, start, end)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    })
+});
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
