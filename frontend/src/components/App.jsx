@@ -4,8 +4,9 @@ import Result from './Result';
 import Searchbox from './Searchbox';
 import Pagination from './Pagination';
 
-import { useSearch } from '../hooks/useSearch';
 import { useDebounce } from '../hooks/useDebounce';
+import { usePages } from '../hooks/usePages';
+import { useSearch } from '../hooks/useSearch';
 
 const App = () => {
 
@@ -22,44 +23,15 @@ const App = () => {
   // Debouncing the search time to pad out the API requests to Elasticsearch
   const debouncedValue = useDebounce(searchTerm, 100);
 
-  const pageLeft = useCallback(() => {
-    let offset = searchOffset;
-    offset = offset - 10;
-    if (offset < 0) {
-      offset = 0;
-    }
-
-    // If there is a difference in the offset, make an API call for previous page
-    if (offset !== searchOffset) {
-      setSearchOffset(offset);
-      search();
-    }
-  }, [numHits, searchOffset]);
-
-
-  const pageRight = useCallback(() => {
-    // Only if we have more than 10 results
-    if (numHits > 10) {
-      let offset = searchOffset;
-      offset = offset + 10;
-      // If you're at the end, go back
-      if (offset + 10 > numHits) {
-        offset = numHits - 10;
-      }
-
-      // If there is a difference in the offset, make an API call for next page
-      if (offset !== searchOffset) {
-        setSearchOffset(offset);
-        search();
-      }
-    }
-  }, [numHits, searchOffset]);
+  const {
+    pageLeft,
+    pageRight,
+  } = usePages(searchOffset, setSearchOffset, numHits);
 
   // Watches the debounced term change
   useEffect(() => {
-    setSearchOffset(0); // Reset the offset everytime the debounced term changes
     search();
-  }, [debouncedValue]);
+  }, [debouncedValue, searchOffset]);
 
   return (
     <div className="container">

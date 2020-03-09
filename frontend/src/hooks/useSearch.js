@@ -28,5 +28,5 @@ export const useSearch = () => {
     setSearchOffset,
     numHits,
     search,
-  }
-}
+  };
+};
