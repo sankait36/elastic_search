@@ -1,31 +1,26 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
 
 import Result from './Result';
 import Searchbox from './Searchbox';
 import Pagination from './Pagination';
 
+import { useSearch } from '../hooks/useSearch';
 import { useDebounce } from '../hooks/useDebounce';
-import { baseUrl } from '../utils/api';
 
 const App = () => {
-  const [searchResults, setSearchResults] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchOffset, setSearchOffset] = useState(0);
 
+  const {
+    numHits,
+    search,
+    searchOffset,
+    searchResults,
+    searchTerm,
+    setSearchOffset,
+    setSearchTerm,
+  } = useSearch();
+
+  // Debouncing the search time to pad out the API requests to Elasticsearch
   const debouncedValue = useDebounce(searchTerm, 100);
-
-  const [numHits, setNumHits] = useState(0);
-
-  const search = useCallback(async () => {
-    axios.get(`${baseUrl}/search`, { params: { term: searchTerm, offset: searchOffset } })
-      .then(res => {
-        setNumHits(res.data.hits.total);
-        setSearchResults(res.data.hits.hits);
-      })
-      .catch(err => err);
-  }, [searchTerm, searchOffset]);
-
 
   const pageLeft = useCallback(() => {
     let offset = searchOffset;
@@ -33,6 +28,8 @@ const App = () => {
     if (offset < 0) {
       offset = 0;
     }
+
+    // If there is a difference in the offset, make an API call for previous page
     if (offset !== searchOffset) {
       setSearchOffset(offset);
       search();
@@ -41,13 +38,16 @@ const App = () => {
 
 
   const pageRight = useCallback(() => {
+    // Only if we have more than 10 results
     if (numHits > 10) {
       let offset = searchOffset;
       offset = offset + 10;
+      // If you're at the end, go back
       if (offset + 10 > numHits) {
         offset = numHits - 10;
       }
-      // Search with offset has to be controlled, not automated with useEffects
+
+      // If there is a difference in the offset, make an API call for next page
       if (offset !== searchOffset) {
         setSearchOffset(offset);
         search();
@@ -55,8 +55,9 @@ const App = () => {
     }
   }, [numHits, searchOffset]);
 
+  // Watches the debounced term change
   useEffect(() => {
-    setSearchOffset(0);
+    setSearchOffset(0); // Reset the offset everytime the debounced term changes
     search();
   }, [debouncedValue]);
 
