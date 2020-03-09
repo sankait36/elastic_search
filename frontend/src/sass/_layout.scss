@@ -17,11 +17,30 @@
 .header {
   font-size: 1.4rem;
   height: 7rem;
-  background-color: #FFF;
+  background-color: white;
   border-bottom: $line;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.summary {
+  height: 5rem;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-bottom: $line;
+  padding: 3rem;
+
+  &__hits {
+    font-size: 2rem;
+  }
+
+  &__offset {
+    font-size: 1.2rem;
+  }
 }
 
 .results {

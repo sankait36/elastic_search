@@ -33,7 +33,10 @@ const App = () => {
     if (offset < 0) {
       offset = 0;
     }
-    setSearchOffset(offset);
+    if (offset !== searchOffset) {
+      setSearchOffset(offset);
+      search();
+    }
   }, [numHits, searchOffset]);
 
 
@@ -44,13 +47,18 @@ const App = () => {
       if (offset + 10 > numHits) {
         offset = numHits - 10;
       }
-      setSearchOffset(offset);
+      // Search with offset has to be controlled, not automated with useEffects
+      if (offset !== searchOffset) {
+        setSearchOffset(offset);
+        search();
+      }
     }
   }, [numHits, searchOffset]);
 
   useEffect(() => {
+    setSearchOffset(0);
     search();
-  }, [debouncedValue, searchOffset]);
+  }, [debouncedValue]);
 
   return (
     <div className="container">
@@ -59,6 +67,12 @@ const App = () => {
           handleTextInput={setSearchTerm}
         />
       </div>
+      {numHits !== 0 && 
+        <div className="summary">
+          <p className="summary__hits">{numHits} hit(s)</p>
+          <p className="summary__offset">Displaying {searchOffset} - {searchOffset + 9} results</p>
+        </div>
+      }
       <Pagination
         handlePageLeft={pageLeft}
         handlePageRight={pageRight}
