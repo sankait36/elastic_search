@@ -1,5 +1,7 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import axios from 'axios';
+
+import { useDebounce } from '../hooks/useDebounce';
 
 import { baseUrl } from '../utils/api';
 
@@ -9,6 +11,9 @@ export const useSearch = () => {
   const [searchOffset, setSearchOffset] = useState(0);
 
   const [numHits, setNumHits] = useState(0);
+
+  // Debouncing the search time to pad out the API requests to Elasticsearch
+  const debouncedValue = useDebounce(searchTerm, 100);
 
   const search = useCallback(async () => {
     axios.get(`${baseUrl}/search`, { params: { term: searchTerm, offset: searchOffset } })
@@ -20,13 +25,16 @@ export const useSearch = () => {
       .catch(err => err);
   }, [searchTerm, searchOffset]);
 
+    // Watches the debounced term change
+    useEffect(() => {
+      search();
+    }, [debouncedValue, searchOffset]);
+
   return {
     searchResults,
-    searchTerm,
     setSearchTerm,
     searchOffset,
     setSearchOffset,
     numHits,
-    search,
   };
 };
