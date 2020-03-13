@@ -6,10 +6,14 @@ import { defaultSearchResults } from '../utils/defaultProps';
 
 const Result = ({
   searchResults,
+  toggleShowModal,
 }) => {
   const resultCards = searchResults.map(item => {
     return (
-      <div className="results__item" key={item._id}>
+      <div 
+        className="results__item"
+        key={item._id}
+        onClick={() => toggleShowModal(true)}>
         <p className="results__highlight">{ReactHtmlParser(item.highlight.text[0])}</p>
         <div className="results__info">
           <p className="results__author">{item._source.author}</p>
@@ -46,10 +50,12 @@ Result.propTypes = {
       })
     }
   )),
+  toggleShowModal: PropTypes.func,
 };
 
 Result.defaultProps = {
   searchResults: defaultSearchResults,
+  toggleShowModal: () => null,
 };
 
 export default Result;

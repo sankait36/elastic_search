@@ -12,6 +12,8 @@ $color-grey-dark-1: #333;
 $color-grey-dark-2: #777;
 $color-grey-dark-3: #999;
 
+$color-backdrop: #000000b3;
+
 $shadow-dark: 0 2rem 6rem rgba(0, 0, 0, .3);
 $shadow-light: 0 2rem 5rem rgba(0, 0, 0, .06);
 $line: 1px solid $color-grey-light-2;
@@ -20,8 +22,8 @@ $line-accent: 1px solid $color-primary;
 $bp-largest: 75em; // 1200px
 $bp-large: 68.75em; 
 $bp-medium: 56.25em; // 900px
-
-$bp-xsmall: 31.25em; // 900px
+$bp-small: 43.75em;  // 700px
+$bp-xsmall: 31.25em; // 500px
 
 @keyframes pushLeft {
   0% {

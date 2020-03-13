@@ -11,9 +11,8 @@ export const usePages = (
     if (offset < 0) {
       offset = 0;
     }
-
     setSearchOffset(offset);
-  }, [numHits, searchOffset]);
+  }, [searchOffset]);
 
 
   const pageRight = useCallback(() => {
