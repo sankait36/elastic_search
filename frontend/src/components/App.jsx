@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Result from './Result';
 import Searchbox from './Searchbox';
 import Pagination from './Pagination';
+import ResultModal from './ResultModal';
 
 import { usePages } from '../hooks/usePages';
 import { useSearch } from '../hooks/useSearch';
-import ResultModal from './ResultModal';
+import { useModal } from '../hooks/useModal';
+import { useParagraphs } from '../hooks/useParagraphs';
 
 const App = () => {
   const {
@@ -22,7 +24,19 @@ const App = () => {
     pageRight,
   } = usePages(searchOffset, setSearchOffset, numHits);
 
-  const [showModal, toggleShowModal] = useState(false);
+  const {
+    selectedItem,
+    showModal,
+    toggleShowModal,
+    bookOffset,
+    setBookOffset
+  } = useModal();
+
+  const {
+    paragraphs,
+    bookPageLeft,
+    bookPageRight,
+  } = useParagraphs(selectedItem, bookOffset, setBookOffset);
 
   return (
     <>
@@ -46,12 +60,17 @@ const App = () => {
         />
         <Result
           searchResults={searchResults}
-          toggleShowModal={toggleShowModal}
+          onResultCardClick={toggleShowModal}
         />
       </div>
       <ResultModal
         show={showModal}
+        bookData={selectedItem}
+        paragraphs={paragraphs}
+        bookOffset={bookOffset}
         toggleShowModal={toggleShowModal}
+        bookPageLeft={bookPageLeft}
+        bookPageRight={bookPageRight}
       />
     </>
   );

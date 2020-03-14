@@ -152,6 +152,16 @@
   &__paragraphs {
     flex: 1;
     font-size: 1.25rem;
+    overflow-y: scroll;
+
+    &--regular,
+    &--bold {
+      padding: .5rem 0;
+    }
+
+    &--bold {
+      font-weight: bold;
+    }
   }
 
   &__pagination {
