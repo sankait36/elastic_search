@@ -39,7 +39,8 @@ const ResultModal = ({
             className="modal__pagination--left"
             onClick={bookPageLeft}
           >
-            <span>&larr;</span>Prev Page
+            <span className="arrow">&larr;</span>
+            <span className="modal__pagination--text">Prev Page</span>
           </button>
           <button
             className="modal__pagination--close"
@@ -51,7 +52,8 @@ const ResultModal = ({
             className="modal__pagination--right"
             onClick={bookPageRight}
           >
-            Next Page<span>&rarr;</span>
+            <span className="modal__pagination--text">Next Page</span>
+            <span className="arrow">&rarr;</span>
           </button>
         </div>
       </div>

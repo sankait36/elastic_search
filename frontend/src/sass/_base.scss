@@ -37,6 +37,18 @@ $bp-xsmall: 31.25em; // 500px
   }
 }
 
+@keyframes modalFade {
+  from {
+    transform: translateY(50%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 *,
 *::before,
 *::after {

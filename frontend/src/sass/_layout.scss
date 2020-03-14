@@ -117,6 +117,7 @@
   background-color: white;
   display: flex;
   flex-direction: column;
+  animation: modalFade .3s;
 
   &__book-info {
     display: flex;
@@ -189,26 +190,32 @@
       }
     }
 
+    @media only screen and (max-width: $bp-xsmall) {
+      &--text {
+        display: none;
+      }
+    }
+
     &--left {
-      span {
+      .arrow {
         margin-right: 5px;
         transition: margin-right .2s;
       }
   
       &:hover {
-        span {
+        .arrow {
           margin-right: 10px;
         }
       }
     }
   
     &--right {
-      span {
+      .arrow {
         margin-left: 5px;
         transition: margin-left .2s;
       }
       &:hover {
-        span {
+        .arrow {
           margin-left: 10px;
         }
       }
